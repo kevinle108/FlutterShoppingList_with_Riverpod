@@ -1,9 +1,9 @@
 class ShoppingItem {
   String name;
-  int quantity;
+  String quantity;
   String note;
   int categoryId;
-  int id = 0;
+  int id;
 
   ShoppingItem({required this.categoryId, required this.name, required this.quantity, required this.note, this.id = 0});
 

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_list/models/shopping_item.dart';
 
 class ItemCard extends StatelessWidget {
-  String itemName;
-  int itemQuantity;
-  String itemNote;
+  ShoppingItem item;
 
-  ItemCard({required this.itemName, required this.itemNote, required this.itemQuantity});
+  ItemCard({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +17,11 @@ class ItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      itemName,
+                      item.name,
                       style: TextStyle(fontSize: 25.0),
                   ),
                   Text(
-                      'Quantity: $itemQuantity - Note: $itemNote',
+                      'Quantity: ${item.quantity} - Note: ${item.note}',
                       style: TextStyle(fontSize: 18.0, color: Colors.black54),
                   ),
                 ],

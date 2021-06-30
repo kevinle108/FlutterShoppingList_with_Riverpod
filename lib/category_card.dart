@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/screens/category_screen.dart';
 
-import 'screens/edit_shopping_list_card.dart';
+import 'widgets/edit_shopping_list_card.dart';
 
 class CategoryCard extends StatelessWidget {
   String itemName;
@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: Icon(Icons.edit, color: Colors.black54,),
             onPressed: () {
               showDialog(
                 context: context,
