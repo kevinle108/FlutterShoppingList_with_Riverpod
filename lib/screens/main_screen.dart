@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_list/screens/edit_shopping_list_card.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -9,7 +10,14 @@ class MainScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: (){},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return EditListCard();
+            },
+          );
+        },
       ),
       body: Column(
         children: [],
