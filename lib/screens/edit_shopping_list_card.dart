@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class EditListCard extends StatelessWidget {
+  String itemName;
+  int itemPriority;
+
+  EditListCard({required this.itemName, required this.itemPriority});
+
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -11,11 +16,11 @@ class EditListCard extends StatelessWidget {
       children: [
         TextField(
           decoration: InputDecoration(
-            hintText: 'Bakery'
+            hintText: itemName,
           ),
         ),
         TextField(decoration: InputDecoration(
-            hintText: '1'
+            hintText: itemPriority.toString(),
         ),),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
