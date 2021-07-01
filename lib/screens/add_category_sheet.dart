@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:provider/provider.dart';
 
-class AddCategorySheet extends StatelessWidget {
+class AddCategorySheet extends StatefulWidget {
+  @override
+  State<AddCategorySheet> createState() => _AddCategorySheetState();
+}
+
+class _AddCategorySheetState extends State<AddCategorySheet> {
   String newCategory = '';
+
   int newPriority = 1;
 
   void addCategoryAndReturn(BuildContext context) {
@@ -19,6 +25,7 @@ class AddCategorySheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
+            autofocus: true,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: 'Enter Category Name',

@@ -3,18 +3,24 @@ import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:flutter_shopping_list/models/shopping_item.dart';
 import 'package:provider/provider.dart';
 
-class AddItemSheet extends StatelessWidget {
+class AddItemSheet extends StatefulWidget {
   int categoryId;
 
   AddItemSheet({required this.categoryId});
 
-  // variables for storing new Item entries
+  @override
+  State<AddItemSheet> createState() => _AddItemSheetState();
+}
+
+class _AddItemSheetState extends State<AddItemSheet> {
   String newItem = '';
+
   String newQuantity = '';
+
   String newNote = '';
 
   void addItemAndReturn(BuildContext context) {
-    Provider.of<ShoppingData>(context, listen: false).addItem(categoryId, newItem, newQuantity, newNote);
+    Provider.of<ShoppingData>(context, listen: false).addItem(widget.categoryId, newItem, newQuantity, newNote);
     Navigator.pop(context);
   }
 
@@ -26,6 +32,7 @@ class AddItemSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
+            autofocus: true,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: 'Enter Item Name',
