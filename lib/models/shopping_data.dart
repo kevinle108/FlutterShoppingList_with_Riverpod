@@ -22,6 +22,8 @@ class ShoppingData extends ChangeNotifier {
   }
 
   void addItem(String newItem, String newQuantity, String newNote) {
+    print('Inside ShoppingData.addItem()');
+    print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');
     items.add(ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote));
     notifyListeners();
   }

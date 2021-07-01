@@ -56,8 +56,10 @@ class AddItemSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32.0),
                 )),
             onPressed: () {
-              ShoppingItem myItem = ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote);
-              myItem.printItem();
+              // ShoppingItem myItem = ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote);
+              // myItem.printItem();
+              print('inside AddItemSheet onPressed');
+              print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');
               Provider.of<ShoppingData>(context, listen: false).addItem(newItem, newQuantity, newNote);
               Navigator.pop(context);
             },
