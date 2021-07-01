@@ -21,6 +21,15 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
+  // todo note: categoryPriority is passed as a string and not an int
+  // todo implement later using the category id instead
+  void editCategory(String originalName, String newName, String categoryPriority) {
+    if (originalName != newName) {
+      categories.firstWhere((category) => category.name == originalName).name = newName;
+      notifyListeners();
+    }
+  }
+
   void addItem(String newItem, String newQuantity, String newNote) {
     print('Inside ShoppingData.addItem()');
     print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');

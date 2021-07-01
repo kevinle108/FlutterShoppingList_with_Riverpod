@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/screens/category_screen.dart';
 
-import 'widgets/edit_shopping_list_card.dart';
+import 'screens/edit_category_screen.dart';
 
 class CategoryCard extends StatelessWidget {
   String itemName;
@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return EditListCard(categoryName: itemName, categoryPriority: itemPriority,);
+                  return EditCategoryCard(categoryName: itemName, categoryPriority: itemPriority,);
                 },
               );
             },

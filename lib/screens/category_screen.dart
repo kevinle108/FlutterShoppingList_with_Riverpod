@@ -4,7 +4,7 @@ import 'package:flutter_shopping_list/category_card.dart';
 import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:flutter_shopping_list/models/shopping_item.dart';
 import 'package:flutter_shopping_list/screens/add_item_sheet.dart';
-import 'package:flutter_shopping_list/widgets/edit_shopping_list_card.dart';
+import 'package:flutter_shopping_list/screens/edit_category_screen.dart';
 import 'package:flutter_shopping_list/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 
