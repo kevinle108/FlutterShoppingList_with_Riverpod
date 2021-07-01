@@ -6,6 +6,10 @@ class AddCategorySheet extends StatelessWidget {
   String newCategory = '';
   int newPriority = 1;
 
+  void addCategoryAndReturn(BuildContext context) {
+    Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority);
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class AddCategorySheet extends StatelessWidget {
             onChanged: (value) {
               newCategory = value;
             },
+            onSubmitted: (value) => addCategoryAndReturn(context),
           ),
           TextField(
             textAlign: TextAlign.center,
@@ -31,6 +36,7 @@ class AddCategorySheet extends StatelessWidget {
               // todo handle error if user inputs a non-int for the priority field
               newPriority = int.parse(value);
             },
+            onSubmitted: (value) => addCategoryAndReturn(context),
           ),
           SizedBox(
             height: 10.0,

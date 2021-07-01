@@ -10,9 +10,15 @@ class AddItemSheet extends StatelessWidget {
   String newQuantity = '';
   String newNote = '';
 
+  void addItemAndReturn(BuildContext context) {
+    Provider.of<ShoppingData>(context, listen: false).addItem(newItem, newQuantity, newNote);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 500,
       padding: EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
@@ -25,6 +31,9 @@ class AddItemSheet extends StatelessWidget {
               newItem = value;
               print(newItem);
             },
+            onSubmitted: (value) {
+              addItemAndReturn(context);
+            },
           ),
           TextField(
             textAlign: TextAlign.center,
@@ -35,6 +44,9 @@ class AddItemSheet extends StatelessWidget {
               newQuantity = value;
               print(newQuantity);
             },
+            onSubmitted: (value) {
+             addItemAndReturn(context);
+            },
           ),
           TextField(
             textAlign: TextAlign.center,
@@ -44,6 +56,9 @@ class AddItemSheet extends StatelessWidget {
             onChanged: (value) {
               newNote = value;
               print(newNote);
+            },
+            onSubmitted: (value) {
+              addItemAndReturn(context);
             },
           ),
           SizedBox(
@@ -56,12 +71,9 @@ class AddItemSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32.0),
                 )),
             onPressed: () {
-              // ShoppingItem myItem = ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote);
-              // myItem.printItem();
               print('inside AddItemSheet onPressed');
-              print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');
-              Provider.of<ShoppingData>(context, listen: false).addItem(newItem, newQuantity, newNote);
-              Navigator.pop(context);
+              print('newItem: ${this.newItem}, newQuantity: ${this.newQuantity}, newNote: ${this.newNote}');
+              addItemAndReturn(context);
             },
             child: Text(
               'Add Item',
@@ -73,42 +85,3 @@ class AddItemSheet extends StatelessWidget {
     );
   }
 }
-// class AddCategorySheet extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.all(20.0),
-//       child: Column(
-//         children: <Widget>[
-//           TextField(
-//             textAlign: TextAlign.center,
-//             decoration: InputDecoration(
-//               hintText: 'Enter Category Name',
-//             ),
-//           ),
-//           TextField(
-//             textAlign: TextAlign.center,
-//             decoration: InputDecoration(
-//               hintText: 'Enter Category Priority',
-//             ),
-//           ),
-//           SizedBox(
-//             height: 10.0,
-//           ),
-//           ElevatedButton(
-//             style: ElevatedButton.styleFrom(
-//                 primary: Colors.green,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(32.0),
-//                 )),
-//             onPressed: () {},
-//             child: Text(
-//               'Add Category',
-//               style: TextStyle(fontSize: 20.0, color: Colors.black),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
