@@ -7,7 +7,6 @@ import 'package:flutter_shopping_list/screens/edit_category_screen.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
-  // List<ShoppingCategory> categories = [];
 
   @override
   Widget build(BuildContext context) {

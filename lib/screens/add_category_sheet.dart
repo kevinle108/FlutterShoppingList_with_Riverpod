@@ -9,7 +9,6 @@ class AddCategorySheet extends StatefulWidget {
 
 class _AddCategorySheetState extends State<AddCategorySheet> {
   String newCategory = '';
-
   int newPriority = 1;
 
   void addCategoryAndReturn(BuildContext context) {

@@ -21,15 +21,13 @@ class CategroryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ShoppingData>(
       builder: (context, shoppingData, child) {
-
-
         int catId = category.id;
         List<ShoppingItem> items = shoppingData.items.where((item) => item.categoryId == catId).toList();
-        print(catId);
-        print(items);
-
-
-
+        // List<ShoppingItem> items = [];
+        // for (int i = 0; i < shoppingData.items.length; i++) {
+        //   print(shoppingData.items[i].id);
+        //   if (shoppingData.items[i].categoryId == catId) items.add(shoppingData.items[i]);
+        // }
         return Scaffold(
           appBar: AppBar(
             title: Text(

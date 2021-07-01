@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_list/models/shopping_category.dart';
 import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:provider/provider.dart';
 
-class EditCategoryCard extends StatelessWidget {
-  String categoryName;
-  int categoryPriority;
+class EditCategoryCard extends StatefulWidget {
+  ShoppingCategory category;
+  
+  EditCategoryCard({required this.category});
 
+  @override
+  State<EditCategoryCard> createState() => _EditCategoryCardState();
+}
+
+class _EditCategoryCardState extends State<EditCategoryCard> {
   String newName = '';
   String newPriority = '';
 
-  // int categoryId?
-
-  EditCategoryCard({required this.categoryName, required this.categoryPriority});
-
   @override
   Widget build(BuildContext context) {
+    newName = widget.category.name;
+    newPriority = widget.category.priority.toString();
+
     return SimpleDialog(
       contentPadding: EdgeInsets.all(20.0),
       title: Text(
@@ -22,13 +28,14 @@ class EditCategoryCard extends StatelessWidget {
       ),
       children: [
         TextField(
-          controller: TextEditingController(text: categoryName),
+          autofocus: true,
+          controller: TextEditingController(text: widget.category.name),
           onChanged: (value) {
             newName = value;
           },
         ),
         TextField(
-          controller: TextEditingController(text: categoryPriority.toString()),
+          controller: TextEditingController(text: widget.category.priority.toString()),
           onChanged: (value) {
             newPriority = value;
           },
@@ -40,8 +47,12 @@ class EditCategoryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(32.0),
               )),
           onPressed: () {
-            Provider.of<ShoppingData>(context, listen: false).editCategory(categoryName, newName, newPriority);
-            Navigator.pop(context);
+            if (widget.category.name != newName || widget.category.priority.toString() != newPriority) {
+              if (int.tryParse(newPriority) != null) {
+                Provider.of<ShoppingData>(context, listen: false).editCategory(widget.category.id, newName, int.parse(newPriority));
+                Navigator.pop(context);
+              }
+            }
           },
           child: Text(
             'Save Shopping List',
