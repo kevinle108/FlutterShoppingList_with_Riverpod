@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/models/shopping_item.dart';
+import 'package:flutter_shopping_list/screens/edit_item_screen.dart';
 
 class ItemCard extends StatelessWidget {
   ShoppingItem item;
@@ -27,8 +28,14 @@ class ItemCard extends StatelessWidget {
                 ],
             ),
             IconButton(
-              icon: Icon(Icons.edit, size: 30.0,),
+              icon: Icon(Icons.edit, color: Colors.black54,),
               onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return EditItemCard(item: item,);
+                  },
+                );
               },
             ),
           ],
