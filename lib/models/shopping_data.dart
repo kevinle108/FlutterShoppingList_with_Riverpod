@@ -32,8 +32,6 @@ class ShoppingData extends ChangeNotifier {
   }
 
   void removeCategory(int catId) {
-    // print('before removing:');
-    print('inside remoteCategory, catId: $catId');
     ShoppingCategory categoryToRemove = categories.firstWhere((category) => category.id == catId);
     categories.remove(categoryToRemove);
     items = items.where((item) => item.categoryId != catId).toList();
@@ -42,8 +40,6 @@ class ShoppingData extends ChangeNotifier {
 
 
   void addItem(int newItemCategoryId, String newItem, String newQuantity, String newNote) {
-    print('Inside ShoppingData.addItem()');
-    print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');
     items.add(ShoppingItem(categoryId: newItemCategoryId, name: newItem, quantity: newQuantity, note: newNote, id: Random().nextInt(99)));
     notifyListeners();
   }
