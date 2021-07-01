@@ -20,6 +20,12 @@ class AddItemSheet extends StatelessWidget {
               hintText: 'Enter Item Quantity',
             ),
           ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: 'Enter Item Note',
+            ),
+          ),
           SizedBox(
             height: 10.0,
           ),

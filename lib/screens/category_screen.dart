@@ -9,11 +9,7 @@ import 'package:flutter_shopping_list/widgets/item_card.dart';
 class CategroryScreen extends StatelessWidget {
   String itemName;
 
-  List<ShoppingItem> shoppingItems = [
-    ShoppingItem(categoryId: 1, name: 'Oranges', quantity: '10', note: 'hi'),
-    ShoppingItem(categoryId: 1, name: 'Apples', quantity: '65', note: 'now'),
-    ShoppingItem(categoryId: 1, name: 'Bananas', quantity: '65', note: 'now'),
-  ];
+  List<ShoppingItem> shoppingItems = [];
 
   CategroryScreen({required this.itemName});
 
