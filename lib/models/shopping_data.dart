@@ -1,9 +1,15 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_shopping_list/db_helper.dart';
 import 'package:flutter_shopping_list/models/shopping_category.dart';
 import 'package:flutter_shopping_list/models/shopping_item.dart';
 
 class ShoppingData extends ChangeNotifier {
+
+  ShoppingData() {
+    getAllCategoriesFromDB();
+  }
+
 
   List<ShoppingItem> items = [
     ShoppingItem(categoryId: 1, name: 'Oranges', quantity: '10', note: 'hi', id: Random().nextInt(99)),
@@ -14,13 +20,25 @@ class ShoppingData extends ChangeNotifier {
   ];
 
   List<ShoppingCategory> categories = [
-    ShoppingCategory(id: 1, name: 'Fruit', priority: 1,),
-    ShoppingCategory(id: 2, name: 'Vegetables', priority: 2),
-    ShoppingCategory(id: 3, name: 'Bakery', priority: 1),
   ];
 
-  void addCategory(String newCategory, int newPriority, int newCategoryId) {
-    categories.add(ShoppingCategory(name: newCategory, priority: newPriority, id: newCategoryId),);
+  // List<ShoppingCategory> categories = [
+  //   ShoppingCategory(id: 1, name: 'Fruit', priority: 1,),
+  //   ShoppingCategory(id: 2, name: 'Vegetables', priority: 2),
+  //   ShoppingCategory(id: 3, name: 'Bakery', priority: 1),
+  // ];
+
+  void getAllCategoriesFromDB() async {
+    categories = await DbHelper.getAllCategories();
+    notifyListeners();
+  }
+
+  void addCategory(String newName, int newPriority, int newCategoryId) async {
+    ShoppingCategory newCategory = ShoppingCategory(name: newName, priority: newPriority, id: 0);
+    newCategory.id = await DbHelper.insertCategory(newCategory);
+    categories.add(newCategory);
+    print('Successfully added category to local and db');
+    newCategory.printCategory();
     notifyListeners();
   }
 
