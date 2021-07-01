@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/models/shopping_category.dart';
+import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:flutter_shopping_list/screens/category_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/edit_category_screen.dart';
 
@@ -19,6 +21,9 @@ class CategoryCard extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CategroryScreen(category: category,)));
+            },
+            onLongPress: () {
+              Provider.of<ShoppingData>(context, listen: false).removeCategory(category.id);
             },
             child: Row(
               children: [
