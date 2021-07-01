@@ -3,5 +3,5 @@ class ShoppingCategory {
   String name;
   int priority;
 
-  ShoppingCategory({required this.name, required this.priority, this.id = 0});
+  ShoppingCategory({required this.name, required this.priority, required this.id});
 }

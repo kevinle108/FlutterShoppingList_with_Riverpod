@@ -8,16 +8,18 @@ class ShoppingData extends ChangeNotifier {
     ShoppingItem(categoryId: 1, name: 'Oranges', quantity: '10', note: 'hi'),
     ShoppingItem(categoryId: 1, name: 'Apples', quantity: '65', note: 'now'),
     ShoppingItem(categoryId: 1, name: 'Bananas', quantity: '65', note: 'now'),
+    ShoppingItem(categoryId: 2, name: 'Potato', quantity: '5', note: 'fresh'),
+    ShoppingItem(categoryId: 3, name: 'Donuts', quantity: '12', note: 'krispy kreme'),
   ];
 
   List<ShoppingCategory> categories = [
-    ShoppingCategory(name: 'Fruit', priority: 1),
-    ShoppingCategory(name: 'Vegetables', priority: 2),
-    ShoppingCategory(name: 'Bakery', priority: 1),
+    ShoppingCategory(id: 1, name: 'Fruit', priority: 1,),
+    ShoppingCategory(id: 2, name: 'Vegetables', priority: 2),
+    ShoppingCategory(id: 3, name: 'Bakery', priority: 1),
   ];
 
-  void addCategory(String newCategory, int newPriority) {
-    categories.add(ShoppingCategory(name: newCategory, priority: newPriority),);
+  void addCategory(String newCategory, int newPriority, int newCategoryId) {
+    categories.add(ShoppingCategory(name: newCategory, priority: newPriority, id: newCategoryId),);
     notifyListeners();
   }
 
@@ -30,10 +32,10 @@ class ShoppingData extends ChangeNotifier {
     }
   }
 
-  void addItem(String newItem, String newQuantity, String newNote) {
+  void addItem(int newItemCategoryId, String newItem, String newQuantity, String newNote) {
     print('Inside ShoppingData.addItem()');
     print('newItem: ${newItem}, newQuantity: ${newQuantity}, newNote: ${newNote}');
-    items.add(ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote));
+    items.add(ShoppingItem(categoryId: newItemCategoryId, name: newItem, quantity: newQuantity, note: newNote));
     notifyListeners();
   }
 

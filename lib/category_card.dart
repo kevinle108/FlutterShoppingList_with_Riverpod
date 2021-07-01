@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_list/models/shopping_category.dart';
 import 'package:flutter_shopping_list/screens/category_screen.dart';
 
 import 'screens/edit_category_screen.dart';
 
 class CategoryCard extends StatelessWidget {
-  String itemName;
-  int itemPriority;
+  ShoppingCategory category;
 
-  CategoryCard({required this.itemName, required this.itemPriority});
+  CategoryCard({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,14 @@ class CategoryCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CategroryScreen(categoryName: itemName,)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CategroryScreen(category: category,)));
             },
             child: Row(
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.lightBlueAccent,
                   child: Text(
-                    itemPriority.toString(),
+                    category.priority.toString(),
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                 ),
@@ -33,7 +33,7 @@ class CategoryCard extends StatelessWidget {
                   width: 20.0,
                 ),
                 Text(
-                  itemName,
+                  category.name,
                   style: TextStyle(fontSize: 20.0),
                 ),
               ],
@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return EditCategoryCard(categoryName: itemName, categoryPriority: itemPriority,);
+                  return EditCategoryCard(categoryName: category.name, categoryPriority: category.priority,);
                 },
               );
             },

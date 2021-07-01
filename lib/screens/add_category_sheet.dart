@@ -7,15 +7,16 @@ class AddCategorySheet extends StatelessWidget {
   int newPriority = 1;
 
   void addCategoryAndReturn(BuildContext context) {
-    Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority);
+    Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority, 99);
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
             textAlign: TextAlign.center,
@@ -48,7 +49,7 @@ class AddCategorySheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32.0),
                 )),
             onPressed: () {
-              Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority);
+              Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority, 99);
               Navigator.pop(context);
             },
             child: Text(

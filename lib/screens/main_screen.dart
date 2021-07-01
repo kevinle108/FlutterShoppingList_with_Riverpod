@@ -26,6 +26,7 @@ class MainScreen extends StatelessWidget {
             onPressed: () {
               showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return AddCategorySheet();
                   });
@@ -36,9 +37,7 @@ class MainScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  return CategoryCard(
-                      itemName: categories[index].name,
-                      itemPriority: categories[index].priority);
+                  return CategoryCard(category: categories[index]);
                 },
               )),
         );

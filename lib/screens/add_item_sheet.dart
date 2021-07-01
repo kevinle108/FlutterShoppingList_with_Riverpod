@@ -4,6 +4,9 @@ import 'package:flutter_shopping_list/models/shopping_item.dart';
 import 'package:provider/provider.dart';
 
 class AddItemSheet extends StatelessWidget {
+  int categoryId;
+
+  AddItemSheet({required this.categoryId});
 
   // variables for storing new Item entries
   String newItem = '';
@@ -11,16 +14,16 @@ class AddItemSheet extends StatelessWidget {
   String newNote = '';
 
   void addItemAndReturn(BuildContext context) {
-    Provider.of<ShoppingData>(context, listen: false).addItem(newItem, newQuantity, newNote);
+    Provider.of<ShoppingData>(context, listen: false).addItem(categoryId, newItem, newQuantity, newNote);
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
             textAlign: TextAlign.center,

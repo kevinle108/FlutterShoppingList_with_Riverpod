@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_list/category_card.dart';
+import 'package:flutter_shopping_list/models/shopping_category.dart';
 import 'package:flutter_shopping_list/models/shopping_data.dart';
 import 'package:flutter_shopping_list/models/shopping_item.dart';
 import 'package:flutter_shopping_list/screens/add_item_sheet.dart';
@@ -9,22 +10,30 @@ import 'package:flutter_shopping_list/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 
 class CategroryScreen extends StatelessWidget {
-  String categoryName;
+  ShoppingCategory category;
 
   // todo implement categoryId to link back to parent list
   // int categoryId;
 
-  CategroryScreen({required this.categoryName});
+  CategroryScreen({required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ShoppingData>(
       builder: (context, shoppingData, child) {
-        List<ShoppingItem> items = shoppingData.items;
+
+
+        int catId = category.id;
+        List<ShoppingItem> items = shoppingData.items.where((item) => item.categoryId == catId).toList();
+        print(catId);
+        print(items);
+
+
+
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              categoryName,
+              category.name,
               style: TextStyle(fontSize: 25.0),
             ),
           ),
@@ -33,9 +42,12 @@ class CategroryScreen extends StatelessWidget {
             onPressed: () {
               // todo add an item
               print('clicked add item!');
-              showModalBottomSheet(context: context, builder: (context) {
-                return AddItemSheet();
-              });
+              showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return AddItemSheet(categoryId: category.id,);
+                  });
             },
           ),
           body: Padding(
@@ -43,7 +55,9 @@ class CategroryScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
-                  return ItemCard(item: items[index],);
+                  return ItemCard(
+                    item: items[index],
+                  );
                 },
               )),
         );
