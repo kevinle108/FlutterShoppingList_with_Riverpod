@@ -4,4 +4,6 @@ class ShoppingCategory {
   int priority;
 
   ShoppingCategory({required this.name, required this.priority, this.id = 0});
+
+
 }

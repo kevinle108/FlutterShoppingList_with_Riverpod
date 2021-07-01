@@ -11,8 +11,6 @@ import 'package:provider/provider.dart';
 class CategroryScreen extends StatelessWidget {
   String categoryName;
 
-
-
   // todo implement categoryId to link back to parent list
   // int categoryId;
 

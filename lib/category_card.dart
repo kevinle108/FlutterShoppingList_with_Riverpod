@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return EditListCard(itemName: itemName, itemPriority: itemPriority,);
+                  return EditListCard(categoryName: itemName, categoryPriority: itemPriority,);
                 },
               );
             },

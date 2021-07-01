@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class EditListCard extends StatelessWidget {
-  String itemName;
-  int itemPriority;
+  String categoryName;
+  int categoryPriority;
 
-  EditListCard({required this.itemName, required this.itemPriority});
+  EditListCard({required this.categoryName, required this.categoryPriority});
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +15,17 @@ class EditListCard extends StatelessWidget {
       ),
       children: [
         TextField(
-          decoration: InputDecoration(
-            hintText: itemName,
-          ),
+          controller: TextEditingController(text: categoryName),
         ),
-        TextField(decoration: InputDecoration(
-            hintText: itemPriority.toString(),
-        ),),
+        TextField(
+          controller: TextEditingController(text: categoryPriority.toString()),
+        ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.green,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0),)
-          ),
+              primary: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              )),
           onPressed: () {},
           child: Text(
             'Save Shopping List',
