@@ -42,6 +42,7 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
+  //todo use db
   void editCategory(int catId, String newName, int newPriority) {
     ShoppingCategory categoryToEdit = categories.firstWhere((category) => category.id == catId);
     categoryToEdit.name = newName;
@@ -49,6 +50,7 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
+  //todo use db
   void removeCategory(int catId) {
     ShoppingCategory categoryToRemove = categories.firstWhere((category) => category.id == catId);
     categories.remove(categoryToRemove);
