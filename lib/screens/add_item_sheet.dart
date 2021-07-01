@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_list/models/shopping_data.dart';
+import 'package:flutter_shopping_list/models/shopping_item.dart';
+import 'package:provider/provider.dart';
 
 class AddItemSheet extends StatelessWidget {
+
+  // variables for storing new Item entries
+  String newItem = '';
+  String newQuantity = '';
+  String newNote = '';
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +21,30 @@ class AddItemSheet extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'Enter Item Name',
             ),
+            onChanged: (value) {
+              newItem = value;
+              print(newItem);
+            },
           ),
           TextField(
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: 'Enter Item Quantity',
             ),
+            onChanged: (value) {
+              newQuantity = value;
+              print(newQuantity);
+            },
           ),
           TextField(
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: 'Enter Item Note',
             ),
+            onChanged: (value) {
+              newNote = value;
+              print(newNote);
+            },
           ),
           SizedBox(
             height: 10.0,
@@ -35,7 +55,12 @@ class AddItemSheet extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32.0),
                 )),
-            onPressed: () {},
+            onPressed: () {
+              ShoppingItem myItem = ShoppingItem(categoryId: 1, name: newItem, quantity: newQuantity, note: newNote);
+              myItem.printItem();
+              Provider.of<ShoppingData>(context, listen: false).addItem(newItem, newQuantity, newNote);
+              Navigator.pop(context);
+            },
             child: Text(
               'Add Item',
               style: TextStyle(fontSize: 20.0, color: Colors.black),
