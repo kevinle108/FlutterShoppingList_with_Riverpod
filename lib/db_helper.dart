@@ -14,14 +14,14 @@ class DbHelper {
     if (_db == null) {
       print('inside _getDb');
       _db = await openDatabase(
-        join(await getDatabasesPath(), 'categories.db'),
+        join(await getDatabasesPath(), 'shopping.db'),
         version: 1,
         onCreate: (db, version) async {
-          return await db.execute(
-              'CREATE TABLE categories(id INTEGER PRIMARY KEY, name TEXT, priority INTEGER)');
+          await db.execute('CREATE TABLE categories(id INTEGER PRIMARY KEY, name TEXT, priority INTEGER)');
+          return await db.execute('CREATE TABLE items(id INTEGER PRIMARY KEY, categoryId INTEGER, name TEXT, quantity TEXT, note TEXT)');
         },
       );
-      print('database categories.db is opened');
+      print('database shopping.db is opened');
     }
     return _db!;
   }
@@ -54,6 +54,32 @@ class DbHelper {
     Database db = await _getDb();
     return await db.update(kTableCategories, category.toMap(),
         where: 'id = ?', whereArgs: [category.id]);
+  }
+
+  static Future<List<ShoppingItem>> getAllItems() async {
+    Database db = await _getDb();
+    final List<Map<String, dynamic>> maps = await db.query(kTableItems);
+    print('Read ${maps.length} items from the database');
+    return List.generate(
+        maps.length,
+            (i) => ShoppingItem(
+            id: maps[i]['id'],
+            categoryId: maps[i]['categoryId'],
+            name: maps[i]['name'],
+            quantity: maps[i]['quantity'],
+            note: maps[i]['note']));
+  }
+
+  static Future<int> insertItem(ShoppingItem newItem) async {
+    Database db = await _getDb();
+    print('inserting new item into db');
+    return await db.insert(kTableItems, newItem.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  static Future<int> updateItem(ShoppingItem item) async {
+    Database db = await _getDb();
+    return await db.update(kTableItems, item.toMap(),
+        where: 'id = ?', whereArgs: [item.id]);
   }
 
 

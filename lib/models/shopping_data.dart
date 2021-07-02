@@ -8,24 +8,25 @@ class ShoppingData extends ChangeNotifier {
 
   ShoppingData() {
     getAllCategoriesFromDB();
+    getAllItemsFromDB();
   }
 
+  List<ShoppingItem> items = [];
 
-  List<ShoppingItem> items = [
-    ShoppingItem(categoryId: 1, name: 'Oranges', quantity: '10', note: 'hi', id: Random().nextInt(99)),
-    ShoppingItem(categoryId: 1, name: 'Apples', quantity: '65', note: 'now', id: Random().nextInt(99)),
-    ShoppingItem(categoryId: 1, name: 'Bananas', quantity: '65', note: 'now', id: Random().nextInt(99)),
-    ShoppingItem(categoryId: 2, name: 'Potato', quantity: '5', note: 'fresh', id: Random().nextInt(99)),
-    ShoppingItem(categoryId: 3, name: 'Donuts', quantity: '12', note: 'krispy kreme', id: Random().nextInt(99)),
-  ];
-
-  List<ShoppingCategory> categories = [
-  ];
+  List<ShoppingCategory> categories = [];
 
   // List<ShoppingCategory> categories = [
   //   ShoppingCategory(id: 1, name: 'Fruit', priority: 1,),
   //   ShoppingCategory(id: 2, name: 'Vegetables', priority: 2),
   //   ShoppingCategory(id: 3, name: 'Bakery', priority: 1),
+  // ];
+
+  // List<ShoppingItem> items = [
+  //   ShoppingItem(categoryId: 1, name: 'Oranges', quantity: '10', note: 'hi', id: Random().nextInt(99)),
+  //   ShoppingItem(categoryId: 1, name: 'Apples', quantity: '65', note: 'now', id: Random().nextInt(99)),
+  //   ShoppingItem(categoryId: 1, name: 'Bananas', quantity: '65', note: 'now', id: Random().nextInt(99)),
+  //   ShoppingItem(categoryId: 2, name: 'Potato', quantity: '5', note: 'fresh', id: Random().nextInt(99)),
+  //   ShoppingItem(categoryId: 3, name: 'Donuts', quantity: '12', note: 'krispy kreme', id: Random().nextInt(99)),
   // ];
 
   void getAllCategoriesFromDB() async {
@@ -59,19 +60,24 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getAllItemsFromDB() async {
+    items = await DbHelper.getAllItems();
+    notifyListeners();
+  }
 
   void addItem(int newItemCategoryId, String newName, String newQuantity, String newNote) async {
     ShoppingItem newItem = ShoppingItem(categoryId: newItemCategoryId, name: newName, quantity: newQuantity, note: newNote, id: Random().nextInt(99));
-    // await DbHelper.insertItem(newItem);
+    newItem.id = await DbHelper.insertItem(newItem);
     items.add(newItem);
     notifyListeners();
   }
 
-  void editItem(int itemId, String newName, String newQuantity, String newNote) {
-    ShoppingItem itemToEdit = items.firstWhere((item) => item.id == itemId);
-    itemToEdit.name = newName;
-    itemToEdit.quantity = newQuantity;
-    itemToEdit.note = newNote;
+  // input: fields, find index matching item
+  void editItem(int itemId, int categoryId, String newName, String newQuantity, String newNote) async {
+    ShoppingItem modifiedItem = ShoppingItem(id: itemId, categoryId: categoryId, name: newName, quantity: newQuantity, note: newNote);
+    await DbHelper.updateItem(modifiedItem);
+    int indexToModify = items.indexWhere((element) => element.id == itemId);
+    items[indexToModify] = modifiedItem;
     notifyListeners();
   }
 

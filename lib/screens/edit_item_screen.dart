@@ -61,7 +61,7 @@ class _EditItemCardState extends State<EditItemCard> {
             print(newQuantity);
             print(newNote);
             if (newName != widget.item.name || newQuantity != widget.item.quantity || newNote != widget.item.note) {
-              Provider.of<ShoppingData>(context, listen: false).editItem(widget.item.id, newName, newQuantity, newNote);
+              Provider.of<ShoppingData>(context, listen: false).editItem(widget.item.id, widget.item.categoryId, newName, newQuantity, newNote);
               Navigator.pop(context);
             }
           },
