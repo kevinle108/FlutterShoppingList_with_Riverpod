@@ -52,11 +52,16 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
-  //todo need to delete db items belonging to the parent category
-  void removeCategory(ShoppingCategory categoryToRemove) async {
-    await DbHelper.deleteCategory(categoryToRemove.id);
-    items = items.where((item) => item.categoryId != categoryToRemove.id).toList();
-    categories.remove(categoryToRemove);
+  void removeCategory(int id) async {
+    await DbHelper.deleteCategory(id);
+    categories.removeWhere((element) => element.id == id);
+    print('Successfully removed category from local and db');
+    List<int> idsItemsToDelete = items.where((element) => element.categoryId == id).map((e) => e.id).toList();
+    idsItemsToDelete.forEach((itemId) async {
+      await DbHelper.deleteItem(itemId);
+    });
+    items.removeWhere((element) => element.categoryId == id);
+    print('Successfully removed all items from old category from local and db');
     notifyListeners();
   }
 
@@ -72,7 +77,6 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
-  // input: fields, find index matching item
   void editItem(int itemId, int categoryId, String newName, String newQuantity, String newNote) async {
     ShoppingItem modifiedItem = ShoppingItem(id: itemId, categoryId: categoryId, name: newName, quantity: newQuantity, note: newNote);
     await DbHelper.updateItem(modifiedItem);
@@ -81,9 +85,9 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(int itemId) {
-    ShoppingItem itemToRemove = items.firstWhere((item) => item.id == itemId);
-    items.remove(itemToRemove);
+  void removeItem(int itemId) async {
+    await DbHelper.deleteItem(itemId);
+    items.removeWhere((element) => element.id == itemId);
     notifyListeners();
   }
 

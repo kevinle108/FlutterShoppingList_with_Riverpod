@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CategroryScreen(category: category,)));
             },
             onLongPress: () {
-              Provider.of<ShoppingData>(context, listen: false).removeCategory(category);
+              Provider.of<ShoppingData>(context, listen: false).removeCategory(category.id);
             },
             child: Row(
               children: [

@@ -82,6 +82,11 @@ class DbHelper {
         where: 'id = ?', whereArgs: [item.id]);
   }
 
+  static Future<int> deleteItem(int id) async {
+    Database db = await _getDb();
+    return await db.delete(kTableItems, where: 'id = ?', whereArgs: [id]);
+  }
+
 
 
   // static Future<int> insertItem(ShoppingItem newItem) async {
