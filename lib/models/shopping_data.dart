@@ -43,10 +43,10 @@ class ShoppingData extends ChangeNotifier {
   }
 
   //todo use db
-  void editCategory(int catId, String newName, int newPriority) {
-    ShoppingCategory categoryToEdit = categories.firstWhere((category) => category.id == catId);
-    categoryToEdit.name = newName;
-    categoryToEdit.priority = newPriority;
+  // input => category
+  void editCategory(ShoppingCategory modifiedCategory) {
+    int indexToUpdate = categories.indexWhere((element) => element.id == modifiedCategory.id);
+    categories[indexToUpdate] = modifiedCategory;
     notifyListeners();
   }
 
