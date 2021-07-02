@@ -42,25 +42,28 @@ class ShoppingData extends ChangeNotifier {
     notifyListeners();
   }
 
-  //todo use db
-  // input => category
-  void editCategory(ShoppingCategory modifiedCategory) {
+  void editCategory(ShoppingCategory modifiedCategory) async {
+    await DbHelper.updateCategory(modifiedCategory);
     int indexToUpdate = categories.indexWhere((element) => element.id == modifiedCategory.id);
     categories[indexToUpdate] = modifiedCategory;
+    print('Successfully updated category in local and db');
+    modifiedCategory.printCategory();
     notifyListeners();
   }
 
-  //todo use db
-  void removeCategory(int catId) {
-    ShoppingCategory categoryToRemove = categories.firstWhere((category) => category.id == catId);
+  //todo need to delete db items belonging to the parent category
+  void removeCategory(ShoppingCategory categoryToRemove) async {
+    await DbHelper.deleteCategory(categoryToRemove.id);
+    items = items.where((item) => item.categoryId != categoryToRemove.id).toList();
     categories.remove(categoryToRemove);
-    items = items.where((item) => item.categoryId != catId).toList();
     notifyListeners();
   }
 
 
-  void addItem(int newItemCategoryId, String newItem, String newQuantity, String newNote) {
-    items.add(ShoppingItem(categoryId: newItemCategoryId, name: newItem, quantity: newQuantity, note: newNote, id: Random().nextInt(99)));
+  void addItem(int newItemCategoryId, String newName, String newQuantity, String newNote) async {
+    ShoppingItem newItem = ShoppingItem(categoryId: newItemCategoryId, name: newName, quantity: newQuantity, note: newNote, id: Random().nextInt(99));
+    // await DbHelper.insertItem(newItem);
+    items.add(newItem);
     notifyListeners();
   }
 

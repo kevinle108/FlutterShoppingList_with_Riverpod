@@ -1,8 +1,10 @@
 import 'package:flutter_shopping_list/models/shopping_category.dart';
+import 'package:flutter_shopping_list/models/shopping_item.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 const kTableCategories = 'categories';
+const kTableItems = 'items';
 
 
 class DbHelper {
@@ -24,9 +26,21 @@ class DbHelper {
     return _db!;
   }
 
+  static Future<List<ShoppingCategory>> getAllCategories() async {
+    Database db = await _getDb();
+    final List<Map<String, dynamic>> maps = await db.query(kTableCategories);
+    print('Read ${maps.length} categories from the database');
+    return List.generate(
+        maps.length,
+            (i) => ShoppingCategory(
+            id: maps[i]['id'],
+            name: maps[i]['name'],
+            priority: maps[i]['priority']));
+  }
+
   static Future<int> insertCategory(ShoppingCategory category) async {
     Database db = await _getDb();
-    print('inserting db');
+    print('inserting new category into db');
     return await db.insert(kTableCategories, category.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -42,16 +56,12 @@ class DbHelper {
         where: 'id = ?', whereArgs: [category.id]);
   }
 
-  static Future<List<ShoppingCategory>> getAllCategories() async {
-    Database db = await _getDb();
-    final List<Map<String, dynamic>> maps = await db.query(kTableCategories);
-    print('Read ${maps.length} categories from the database');
-    return List.generate(
-        maps.length,
-            (i) => ShoppingCategory(
-            id: maps[i]['id'],
-            name: maps[i]['name'],
-            priority: maps[i]['priority']));
-  }
+
+
+  // static Future<int> insertItem(ShoppingItem newItem) async {
+  //   Database db = await _getDb();
+  //
+  //
+  // }
 }
 
