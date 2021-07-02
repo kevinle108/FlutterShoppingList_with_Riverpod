@@ -49,7 +49,6 @@ class _EditCategoryCardState extends State<EditCategoryCard> {
           onPressed: () {
             if (widget.category.name != newName || widget.category.priority.toString() != newPriority) {
               if (int.tryParse(newPriority) != null) {
-                // create new ShoppingCategory obj
                 ShoppingCategory modifiedCategory = ShoppingCategory(name: newName, priority: int.parse(newPriority), id: widget.category.id);
                 Provider.of<ShoppingData>(context, listen: false).editCategory(modifiedCategory);
                 Navigator.pop(context);
