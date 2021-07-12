@@ -9,11 +9,13 @@ class AddCategorySheet extends StatefulWidget {
 
 class _AddCategorySheetState extends State<AddCategorySheet> {
   String newCategory = '';
-  int newPriority = 1;
+  String newPriority = '';
 
-  void addCategoryAndReturn(BuildContext context) {
-    Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority, 99);
-    Navigator.pop(context);
+  void addCategoryAndReturn(BuildContext context, String newCategory, String newPriority) {
+    if (int.tryParse(newPriority) != null) {
+      Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, int.parse(newPriority), 99);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -32,7 +34,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
             onChanged: (value) {
               newCategory = value;
             },
-            onSubmitted: (value) => addCategoryAndReturn(context),
+            onSubmitted: (value) => addCategoryAndReturn(context, newCategory, newPriority)
           ),
           TextField(
             textAlign: TextAlign.center,
@@ -40,10 +42,9 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
               hintText: 'Enter Category Priority',
             ),
             onChanged: (value) {
-              // todo handle error if user inputs a non-int for the priority field
-              newPriority = int.parse(value);
+              newPriority = value;
             },
-            onSubmitted: (value) => addCategoryAndReturn(context),
+            onSubmitted: (value) => addCategoryAndReturn(context, newCategory, newPriority),
           ),
           SizedBox(
             height: 10.0,
@@ -54,10 +55,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32.0),
                 )),
-            onPressed: () {
-              Provider.of<ShoppingData>(context, listen: false).addCategory(newCategory, newPriority, 99);
-              Navigator.pop(context);
-            },
+            onPressed: () => addCategoryAndReturn(context, newCategory, newPriority),
             child: Text(
               'Add Category',
               style: TextStyle(fontSize: 20.0, color: Colors.black),

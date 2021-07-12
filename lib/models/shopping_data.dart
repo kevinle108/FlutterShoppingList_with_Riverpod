@@ -61,7 +61,7 @@ class ShoppingData extends ChangeNotifier {
       await DbHelper.deleteItem(itemId);
     });
     items.removeWhere((element) => element.categoryId == id);
-    print('Successfully removed all items from old category from local and db');
+    print('Successfully removed all items in old category from local and db');
     notifyListeners();
   }
 
@@ -71,7 +71,7 @@ class ShoppingData extends ChangeNotifier {
   }
 
   void addItem(int newItemCategoryId, String newName, String newQuantity, String newNote) async {
-    ShoppingItem newItem = ShoppingItem(categoryId: newItemCategoryId, name: newName, quantity: newQuantity, note: newNote, id: Random().nextInt(99));
+    ShoppingItem newItem = ShoppingItem(categoryId: newItemCategoryId, name: newName, quantity: newQuantity, note: newNote, id: 0);
     newItem.id = await DbHelper.insertItem(newItem);
     items.add(newItem);
     notifyListeners();
